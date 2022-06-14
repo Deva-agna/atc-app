@@ -1,0 +1,5 @@
+.btn-hapus:hover{
+    color: #fff;
+    background-color: rgb(235, 29, 29);
+    cursor: pointer;
+}
