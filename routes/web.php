@@ -25,6 +25,7 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function () {
 
     Route::get('/pengujian', [PengujianController::class, 'index'])->name('pengujian');
     Route::post('/pengujian/store', [PengujianController::class, 'store'])->name('pengujian-store');
+    Route::delete('/pengujian/{slug}/destroy', [PengujianController::class, 'destroy']);
 });
 
 Route::group(['middleware' => ['auth', 'checkRole:user']], function () {
@@ -40,4 +41,6 @@ Route::group(['middleware' => ['auth', 'checkRole:user']], function () {
     Route::get('/pengujian/{slug}/edit', [PengujianController::class, 'edit']);
     Route::put('/pengujian/update', [PengujianController::class, 'update'])->name('pengujian-update');
     Route::get('/pengujian/{slug}/verifikasi', [PengujianController::class, 'verifikasi']);
+    Route::get('/pengujian/atc/performance/cek', [PengujianController::class, 'atcPerformanceCek'])->name('pengujian-atc-performance-cek');
+    Route::get('/pengujian/print/atc/performance/cek', [PengujianController::class, 'printAtcPerformanceCek'])->name('pengujian-print-atc-performance-cek');
 });

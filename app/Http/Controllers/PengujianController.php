@@ -19,13 +19,13 @@ class PengujianController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'user' => 'required',
+            'id' => 'required',
         ]);
 
-        $user = User::where('id', $request->user)->first();
+        $user = User::where('id', $request->id)->first();
 
         Pengujian::create([
-            'user_id' => $request->user,
+            'user_id' => $request->id,
             'status' => 'false',
             'slug' => Str::of($user->name . '-' . time())->slug('-'),
         ]);
@@ -99,5 +99,25 @@ class PengujianController extends Controller
         } else {
             return redirect()->route('pengujian-list')->with('error', 'Harap isi semua data sebelum melakukan verifkasi!');
         }
+    }
+
+    public function destroy($slug)
+    {
+        $pengujian = Pengujian::where('slug', $slug)->first();
+        Pengujian::destroy($pengujian->id);
+        return redirect()->route('pengujian')->with('sukses', 'Data berhasil dihapus!');
+    }
+
+    public function atcPerformanceCek()
+    {
+        $pengujian_s = Pengujian::where('user_id', auth()->user()->id)->where('status', 'true')->get();
+        return view('pengujian.atc-performance-cek', compact('pengujian_s'));
+    }
+
+    public function printAtcPerformanceCek()
+    {
+        $pengujian_s = Pengujian::where('user_id', auth()->user()->id)->where('status', 'true')->get();
+        $user = User::where('id', auth()->user()->id)->first();
+        return view('pengujian.print-atc-performance-cek', compact('pengujian_s', 'user'));
     }
 }

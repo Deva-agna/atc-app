@@ -11,10 +11,17 @@ class Biodata extends Model
 
     protected $fillable = [
         'user_id',
-        'tanggal_lahir',
-        'jenis_kelamin',
-        'alamat',
-        'slug',
+        'license_number_one',
+        'effected_since_one',
+        'license_number_two',
+        'effected_since_two',
+        'birth',
+        'nationality',
+        'sex',
+        'address',
+        'rating_one',
+        'rating_two',
+        'slug'
     ];
 
     public function user()

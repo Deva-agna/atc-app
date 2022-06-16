@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Atc;
 use App\Models\Biodata;
+use App\Models\Pengujian;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -26,12 +27,13 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email:dns|unique:users',
-            'tanggal_lahir' => 'required',
-            'jenis_kelamin' => 'required',
-            'alamat' => 'required',
+            'birth' => 'required',
+            'nationality' => 'required',
+            'sex' => 'required',
+            'address' => 'required',
         ]);
 
-        $password = date('d-m-Y', strtotime($request->tanggal_lahir));
+        $password = date('d-m-Y', strtotime($request->birth));
 
         $user = User::create([
             'name' => $request->name,
@@ -43,9 +45,16 @@ class UserController extends Controller
 
         Biodata::create([
             'user_id' => $user->id,
-            'tanggal_lahir' => $request->tanggal_lahir,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'alamat' => $request->alamat,
+            'license_number_one' => $request->license_number_one,
+            'effected_since_one' => $request->effected_since_one,
+            'license_number_two' => $request->license_number_two,
+            'effected_since_two' => $request->effected_since_two,
+            'birth' => $request->birth,
+            'nationality' => $request->nationality,
+            'sex' => $request->sex,
+            'address' => $request->address,
+            'rating_one' => $request->rating_one,
+            'rating_two' => $request->rating_two,
             'slug' => Str::of($request->name . '-' . time())->slug('-'),
         ]);
 
@@ -62,9 +71,10 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'tanggal_lahir' => 'required',
-            'jenis_kelamin' => 'required',
-            'alamat' => 'required',
+            'birth' => 'required',
+            'nationality' => 'required',
+            'sex' => 'required',
+            'address' => 'required',
         ]);
 
         $user = User::where('id', $request->id)->first();
@@ -75,7 +85,7 @@ class UserController extends Controller
             ]);
         }
 
-        $password = date('d-m-Y', strtotime($request->tanggal_lahir));
+        $password = date('d-m-Y', strtotime($request->birth));
 
 
 
@@ -88,9 +98,17 @@ class UserController extends Controller
         ]);
 
         Biodata::where('user_id', $request->id)->update([
-            'tanggal_lahir' => $request->tanggal_lahir,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'alamat' => $request->alamat,
+            'user_id' => $user->id,
+            'license_number_one' => $request->license_number_one,
+            'effected_since_one' => $request->effected_since_one,
+            'license_number_two' => $request->license_number_two,
+            'effected_since_two' => $request->effected_since_two,
+            'birth' => $request->birth,
+            'nationality' => $request->nationality,
+            'sex' => $request->sex,
+            'address' => $request->address,
+            'rating_one' => $request->rating_one,
+            'rating_two' => $request->rating_two,
             'slug' => Str::of($request->name . '-' . time())->slug('-'),
         ]);
 
@@ -102,9 +120,14 @@ class UserController extends Controller
         $user = User::where('slug', $slug)->first();
         $biodata = Biodata::where('user_id', $user->id)->first();
         $atc = Atc::where('user_id', $user->id)->get();
+        $pengujian = Pengujian::where('user_id', $user->id)->get();
 
         if ($atc) {
             Atc::destroy($atc);
+        }
+
+        if ($pengujian) {
+            Pengujian::destroy($pengujian);
         }
         Biodata::destroy($biodata->id);
         User::destroy($user->id);

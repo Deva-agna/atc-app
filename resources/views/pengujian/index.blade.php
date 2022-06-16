@@ -27,7 +27,7 @@
             @csrf
             <div class="form-group">
                 <label class="form-control-label" for="user">User</label>
-                <select class="form-control form-control-alternative" name="user" id="user">
+                <select class="form-control form-control-alternative" name="id" id="user">
                     <option value="">Pilih</option>
                     @foreach($users as $user)
                     <option value="{{$user->id}}">{{$user->name}}</option>
@@ -117,10 +117,10 @@
                                 </span>
                             </td>
                             <td>
-                                <form action="#" class="d-inline" id="form-delete" method="post">
+                                <form action="/pengujian/{{$pengujian->slug}}/destroy" class="d-inline" id="form-delete{{$pengujian->id}}" method="post">
                                     @csrf
                                     @method('delete')
-                                    <button style="border: 0;" class="btn-hapus badge badge-danger"><i class="fas fa-solid fa-trash"></i></button>
+                                    <button style="border: 0;" class="btn-hapus badge badge-danger" data-id="{{$pengujian->id}}"><i class="fas fa-solid fa-trash"></i></button>
                                 </form>
                             </td>
                         </tr>
@@ -128,12 +128,6 @@
                     </tbody>
                 </table>
             </div>
-            <!-- <div class="card-footer py-4">
-                <a href="{{route('print-atc')}}" target="_blank" class="btn btn-icon btn-primary">
-                    <span class="btn-inner--icon"><i class="fas fa-solid fa-print"></i></span>
-                    <span class="btn-inner--text">print</span>
-                </a>
-            </div> -->
         </div>
     </div>
 </div>
@@ -147,9 +141,10 @@
 <script>
     $(document).on('click', '.btn-hapus', function(e) {
         e.preventDefault();
+        id = e.target.dataset.id;
         Swal.fire({
             title: 'Apakah anda yakin?',
-            text: "Data user akan dihapus!",
+            text: "Jika form pengujian dihapus, maka semua data yang terkait akan hilang!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -157,7 +152,7 @@
             confirmButtonText: 'Ya, Hapus!'
         }).then((result) => {
             if (result.isConfirmed) {
-                $('#form-delete').submit()
+                $(`#form-delete${id}`).submit();
             }
         })
     });

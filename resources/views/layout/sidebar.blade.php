@@ -57,7 +57,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="./examples/tables.html">
+                    <a class="nav-link {{ 'pengujian/atc/performance/cek' == request()->path() ? 'active' : '' }} " href="{{route('pengujian-atc-performance-cek')}}">
                         <i class="ni ni-settings-gear-65 text-red"></i> ATC - Performance Cek
                     </a>
                 </li>

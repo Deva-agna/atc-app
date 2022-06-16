@@ -47,10 +47,10 @@
                             </td>
                             <td>
                                 <a href="/user/{{$user->slug}}/edit" class="badge badge-success">Edit</a>
-                                <form action="/user/{{$user->slug}}/destroy" class="d-inline" id="form-delete" method="post">
+                                <form action="/user/{{$user->slug}}/destroy" class="d-inline" id="form-delete{{$user->slug}}" method="post">
                                     @csrf
                                     @method('delete')
-                                    <button style="border: 0;" class="btn-hapus badge badge-danger">Hapus</button>
+                                    <button style="border: 0;" class="btn-hapus badge badge-danger" data-id="{{$user->slug}}">Hapus</button>
                                 </form>
                             </td>
                         </tr>
@@ -73,6 +73,7 @@
 <script>
     $(document).on('click', '.btn-hapus', function(e) {
         e.preventDefault();
+        slug = e.target.dataset.id;
         Swal.fire({
             title: 'Apakah anda yakin?',
             text: "Semua Data yang terkait dengan user ini akan dihapus!",
@@ -83,7 +84,7 @@
             confirmButtonText: 'Ya, Hapus!'
         }).then((result) => {
             if (result.isConfirmed) {
-                $('#form-delete').submit()
+                $(`#form-delete${slug}`).submit();
             }
         })
     });

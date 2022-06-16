@@ -16,59 +16,115 @@
     <div class="card-body">
         <form action="{{ route('user-store') }}" method="post">
             @csrf
-            <h6 class="heading-small text-muted mb-4">User Informasi</h6>
+            <h6 class="heading-small text-muted mb-4">I. Type of License</h6>
             <div class="pl-lg-4">
-                <div class="form-group">
-                    <label class="form-control-label" for="name">Nama Lengkap</label>
-                    <input type="text" id="name" name="name" class="form-control form-control-alternative" placeholder="Masukan Nama Lengkap" value="{{old('name')}}">
-                    @error('name')
-                    <div class="invalid-feedback" style="display: inline;">
-                        {{ $message }}
+                <h6 class="heading-small text-muted">1. Junior Air Traffic Controller License</h6>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group focused">
+                            <label class="form-control-label" for="license_number_one">License Number</label>
+                            <input type="number" id="license_number_one" name="license_number_one" class="form-control form-control-alternative" value="{{old('license_number_one')}}">
+                        </div>
                     </div>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="email">Email</label>
-                    <input type="email" id="email" name="email" class="form-control form-control-alternative" placeholder="name@example.com" value="{{old('email')}}">
-                    @error('email')
-                    <div class="invalid-feedback" style="display: inline;">
-                        {{ $message }}
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="form-control-label" for="effected_since_one">Effected since</label>
+                            <input type="text" id="effected_since_one" name="effected_since_one" class="form-control form-control-alternative" value="{{old('effected_since_one')}}">
+                        </div>
                     </div>
-                    @enderror
                 </div>
-                <div class="form-group">
-                    <label for="tanggal_lahir" class="form-control-label">Tanggal Lahir</label>
-                    <input class="form-control form-control-alternative" name="tanggal_lahir" type="date" value="{{old('tanggal_lahir')}}" id="tanggal_lahir">
-                    @error('tanggal_lahir')
-                    <div class="invalid-feedback" style="display: inline;">
-                        {{ $message }}
+                <h6 class="heading-small text-muted">2. Junior Air Traffic Controller License</h6>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group focused">
+                            <label class="form-control-label" for="license_number_two">License Number</label>
+                            <input type="number" id="license_number_two" name="license_number_two" class="form-control form-control-alternative" value="{{old('license_number_two')}}">
+                        </div>
                     </div>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="jenis_kelamin" class="form-control-label">Jenis Kelamin</label>
-                    <select class="form-control form-control-alternative" name="jenis_kelamin" id="jenis_kelamin">
-                        <option value="">Pilih</option>
-                        <option value="male">Laki - Laki</option>
-                        <option value="female">Perempuan</option>
-                    </select>
-                    @error('jenis_kelamin')
-                    <div class="invalid-feedback" style="display: inline;">
-                        {{ $message }}
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="form-control-label" for="effected_since_two">Effected since</label>
+                            <input type="text" id="effected_since_two" name="effected_since_two" class="form-control form-control-alternative" value="{{old('effected_since_two')}}">
+                        </div>
                     </div>
-                    @enderror
                 </div>
-                <div class="form-group">
-                    <label for="alamat" class="form-control-label">Alamat</label>
-                    <input class="form-control form-control-alternative" name="alamat" type="text" value="{{old('alamat')}}" id="alamat">
-                    @error('alamat')
-                    <div class="invalid-feedback" style="display: inline;">
-                        {{ $message }}
-                    </div>
-                    @enderror
-                </div>
-                <button class="btn btn-primary" type="submit">Simpan</button>
             </div>
+            <div class="form-group">
+                <label class="form-control-label text-muted" for="name">II. Name of Holder (In Full) <span class="text-danger">*</span></label>
+                <input type="text" id="name" name="name" class="form-control form-control-alternative" placeholder="Masukan Nama Lengkap" value="{{old('name')}}">
+                @error('name')
+                <div class="invalid-feedback" style="display: inline;">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label class="form-control-label text-muted" for="email">III. Email <span class="text-danger">*</span></label>
+                <input type="email" id="email" name="email" class="form-control form-control-alternative" placeholder="name@example.com" value="{{old('email')}}">
+                @error('email')
+                <div class="invalid-feedback" style="display: inline;">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="birth" class="form-control-label text-muted">IV. Place and Date of Birth <span class="text-danger">*</span></label>
+                <input class="form-control form-control-alternative" name="birth" type="date" value="{{old('birth')}}" id="birth">
+                @error('birth')
+                <div class="invalid-feedback" style="display: inline;">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label class="form-control-label text-muted" for="nationality">V. Nationality <span class="text-danger">*</span></label>
+                <input type="text" id="nationality" name="nationality" class="form-control form-control-alternative" placeholder="Indonesia" value="{{old('nationality')}}">
+                @error('nationality')
+                <div class="invalid-feedback" style="display: inline;">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="sex" class="form-control-label text-muted">VI. Sex <span class="text-danger">*</span></label>
+                <select class="form-control form-control-alternative" name="sex" id="sex">
+                    <option value="">Pilih</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+                @error('sex')
+                <div class="invalid-feedback" style="display: inline;">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="address" class="form-control-label text-muted">VII. Address <span class="text-danger">*</span></label>
+                <input class="form-control form-control-alternative" name="address" type="text" value="{{old('address')}}" id="address">
+                @error('address')
+                <div class="invalid-feedback" style="display: inline;">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <h6 class="heading-small text-muted mb-4">VIII. Rating</h6>
+            <div class="pl-lg-4">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group focused">
+                            <label class="form-control-label" for="rating_one">1</label>
+                            <input type="text" id="rating_one" name="rating_one" class="form-control form-control-alternative" value="{{old('rating_one')}}">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="form-control-label" for="rating_two">2</label>
+                            <input type="text" id="rating_two" name="rating_two" class="form-control form-control-alternative" value="{{old('rating_two')}}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit">Simpan</button>
         </form>
     </div>
 </div>

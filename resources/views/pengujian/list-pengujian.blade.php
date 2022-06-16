@@ -101,38 +101,13 @@
                     </table>
                 </div>
                 <!-- <div class="card-footer py-4">
-                <a href="{{route('print-atc')}}" target="_blank" class="btn btn-icon btn-primary">
-                    <span class="btn-inner--icon"><i class="fas fa-solid fa-print"></i></span>
-                    <span class="btn-inner--text">print</span>
-                </a>
-            </div> -->
+                    <a href="{{route('print-atc')}}" target="_blank" class="btn btn-icon btn-primary">
+                        <span class="btn-inner--icon"><i class="fas fa-solid fa-print"></i></span>
+                        <span class="btn-inner--text">print</span>
+                    </a>
+                </div> -->
             </div>
         </div>
     </div>
-    @endsection
-
-    @section('script')
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.17/dist/sweetalert2.all.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script>
-        $(document).on('click', '.btn-hapus', function(e) {
-            e.preventDefault();
-            Swal.fire({
-                title: 'Apakah anda yakin?',
-                text: "Data user akan dihapus!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, Hapus!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $('#form-delete').submit()
-                }
-            })
-        });
-    </script>
-
-    @endsection
+</div>
+@endsection
