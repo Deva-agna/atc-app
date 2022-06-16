@@ -17,6 +17,7 @@
     <!-- CSS Files -->
     <link href="{{ asset('assets/css/argon-dashboard.css?v=1.1.2') }}" rel="stylesheet" />
     <link href="{{ asset('assets/style.css') }}" rel="stylesheet" />
+
 </head>
 
 <body class="">
@@ -33,19 +34,12 @@
     </div>
     <!--   Core   -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.17/dist/sweetalert2.all.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{{ asset('assets/js/plugins/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <!--   Argon JS   -->
     @yield('script')
     <script src="{{ asset('assets/js/argon-dashboard.min.js?v=1.1.2') }}"></script>
-    <!-- <script>
-        window.TrackJS &&
-            TrackJS.install({
-                token: "ee6fab19c5a04ac1a32a645abde4613a",
-                application: "argon-dashboard-free"
-            });
-    </script> -->
 </body>
 
 </html>

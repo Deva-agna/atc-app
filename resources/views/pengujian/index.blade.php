@@ -117,10 +117,10 @@
                                 </span>
                             </td>
                             <td>
+                                <button style="border: 0;" class="btn-hapus badge badge-danger" data-id="{{$pengujian->id}}"><i class="fas fa-solid fa-trash"></i></button>
                                 <form action="/pengujian/{{$pengujian->slug}}/destroy" class="d-inline" id="form-delete{{$pengujian->id}}" method="post">
                                     @csrf
                                     @method('delete')
-                                    <button style="border: 0;" class="btn-hapus badge badge-danger" data-id="{{$pengujian->id}}"><i class="fas fa-solid fa-trash"></i></button>
                                 </form>
                             </td>
                         </tr>
@@ -137,7 +137,7 @@
 <script>
     $(document).on('click', '.btn-hapus', function(e) {
         e.preventDefault();
-        id = e.target.dataset.id;
+        const id = $(this).data('id');
         Swal.fire({
             title: 'Apakah anda yakin?',
             text: "Jika form pengujian dihapus, maka semua data yang terkait akan hilang!",
@@ -148,6 +148,7 @@
             confirmButtonText: 'Ya, Hapus!'
         }).then((result) => {
             if (result.isConfirmed) {
+                console.log(id);
                 $(`#form-delete${id}`).submit();
             }
         })

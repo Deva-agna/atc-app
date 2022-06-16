@@ -112,10 +112,10 @@
                             </td>
                             <td>
                                 <a href="/atc/{{$atc->slug}}/edit" class="badge badge-success"><i class="fas fa-solid fa-pen"></i></a>
-                                <form action="/atc/{{$atc->slug}}/destroy" class="d-inline" id="form-delete{{$atc->slug}}" method="post">
+                                <form action="/atc/{{$atc->slug}}/destroy" class="d-inline" id="form-delete{{$atc->id}}" method="post">
                                     @csrf
                                     @method('delete')
-                                    <button style="border: 0;" class="btn-hapus badge badge-danger" data-id="{{$atc->slug}}"><i class="fas fa-solid fa-trash"></i></button>
+                                    <button style="border: 0;" class="btn-hapus badge badge-danger" data-id="{{$atc->id}}"><i class="fas fa-solid fa-trash"></i></button>
                                 </form>
                             </td>
                         </tr>
@@ -142,10 +142,10 @@
 <script>
     $(document).on('click', '.btn-hapus', function(e) {
         e.preventDefault();
-        slug = e.target.dataset.id;
+        const id = $(this).data('id');
         Swal.fire({
             title: 'Apakah anda yakin?',
-            text: "Semua Data yang terkait dengan user ini akan dihapus!",
+            text: "Data yang telah diinput akan terhapus!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -153,7 +153,7 @@
             confirmButtonText: 'Ya, Hapus!'
         }).then((result) => {
             if (result.isConfirmed) {
-                $(`#form-delete${slug}`).submit();
+                $(`#form-delete${id}`).submit();
             }
         })
     });
