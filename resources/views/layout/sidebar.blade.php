@@ -5,7 +5,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <!-- Brand -->
-        <a class="navbar-brand pt-0" href="./index.html">
+        <a class="navbar-brand pt-0" href="/">
             <img src="{{ asset('assets/img/brand/blue.png') }}" class="navbar-brand-img" alt="...">
         </a>
         <!-- Collapse -->
@@ -14,8 +14,8 @@
             <div class="navbar-collapse-header d-md-none">
                 <div class="row">
                     <div class="col-6 collapse-brand">
-                        <a href="./index.html">
-                            <img src="./assets/img/brand/blue.png">
+                        <a href="/">
+                            <img src="{{ asset('assets/img/brand/blue.png') }}">
                         </a>
                     </div>
                     <div class="col-6 collapse-close">
@@ -28,7 +28,7 @@
             </div>
             <!-- Navigation -->
             <ul class="navbar-nav">
-                <li class="nav-item  active ">
+                <li class="nav-item">
                     <a class="nav-link {{ 'dashboard' == request()->path() ? 'active' : '' }} " href="{{route('dashboard')}}">
                         <i class="ni ni-tv-2 text-primary"></i> Dashboard
                     </a>

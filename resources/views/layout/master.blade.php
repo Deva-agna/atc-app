@@ -32,6 +32,7 @@
         </div>
     </div>
     <!--   Core   -->
+    @yield('script')
     <script src="{{ asset('assets/js/plugins/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <!--   Argon JS   -->
@@ -44,7 +45,6 @@
                 application: "argon-dashboard-free"
             });
     </script>
-    @yield('script')
 </body>
 
 </html>
