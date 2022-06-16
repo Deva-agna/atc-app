@@ -134,10 +134,6 @@
 @endsection
 
 @section('script')
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.17/dist/sweetalert2.all.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
     $(document).on('click', '.btn-hapus', function(e) {
         e.preventDefault();

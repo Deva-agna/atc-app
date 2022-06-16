@@ -6,7 +6,7 @@
         </button>
         <!-- Brand -->
         <a class="navbar-brand pt-0" href="/">
-            <img src="{{ asset('assets/img/brand/blue.png') }}" class="navbar-brand-img" alt="...">
+            <img src="{{ asset('assets/img/brand/blue.png') }}" class="navbar-brand-img">
         </a>
         <!-- Collapse -->
         <div class="collapse navbar-collapse" id="sidenav-collapse-main">
