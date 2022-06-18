@@ -37,36 +37,36 @@
                                     <p class="text-xs font-weight-bold mb-0">APP</p>
                                 </th>
                                 <td class="text-center">
-                                    <p class="text-xs font-weight-bold mb-0">{{ $pengujian->theory_twr }}</p>
-                                    <p class="text-xs font-weight-bold mb-0">{{ $pengujian->theory_app }}</p>
+                                    <p class="text-xs font-weight-bold mb-0">{{ ($pengujian->twrTheory->theory) ? $pengujian->twrTheory->theory : '-' }}</p>
+                                    <p class="text-xs font-weight-bold mb-0">{{ ($pengujian->appTheory->theory) ? $pengujian->appTheory->theory : '-' }}</p>
                                 </td>
                                 <td class="text-center">
-                                    <p class="text-xs font-weight-bold mb-0">{{ $pengujian->renewed_unit_theory_twr }}</p>
-                                    <p class="text-xs font-weight-bold mb-0">{{ $pengujian->renewed_unit_theory_app }}</p>
+                                    <p class="text-xs font-weight-bold mb-0">{{ ($pengujian->twrTheory->renewed_until) ? $pengujian->twrTheory->renewed_until : '-' }}</p>
+                                    <p class="text-xs font-weight-bold mb-0">{{ ($pengujian->appTheory->renewed_until) ? $pengujian->appTheory->renewed_until : '-' }}</p>
                                 </td>
                                 <td class="text-center">
-                                    <p class="text-xs font-weight-bold mb-0">{{ $pengujian->examiner_theory_twr }}</p>
-                                    <p class="text-xs font-weight-bold mb-0">{{ $pengujian->examiner_theory_app }}</p>
+                                    <p class="text-xs font-weight-bold mb-0">{{ ($pengujian->twrTheory->user->name) ? $pengujian->twrTheory->user->name : '-' }}</p>
+                                    <p class="text-xs font-weight-bold mb-0">{{ ($pengujian->appTheory->user->name) ? $pengujian->appTheory->user->name : '-' }}</p>
                                 </td>
                                 <td class="text-center">
-                                    <p class="text-xs font-weight-bold mb-0">{{ $pengujian->score_theory_twr }}</p>
-                                    <p class="text-xs font-weight-bold mb-0">{{ $pengujian->score_theory_app }}</p>
+                                    <p class="text-xs font-weight-bold mb-0">{{ ($pengujian->twrTheory->score) ? $pengujian->twrTheory->score : '-' }}</p>
+                                    <p class="text-xs font-weight-bold mb-0">{{ ($pengujian->appTheory->score) ? $pengujian->appTheory->score : '-' }}</p>
                                 </td>
                                 <td class="text-center">
-                                    <p class="text-xs font-weight-bold mb-0">{{ $pengujian->practical_twr }}</p>
-                                    <p class="text-xs font-weight-bold mb-0">{{ $pengujian->practical_app }}</p>
+                                    <p class="text-xs font-weight-bold mb-0">{{ ($pengujian->twrPractical->practical) ? $pengujian->twrPractical->practical : '-' }}</p>
+                                    <p class="text-xs font-weight-bold mb-0">{{ ($pengujian->appPractical->practical) ? $pengujian->appPractical->practical : '-' }}</p>
                                 </td>
                                 <td class="text-center">
-                                    <p class="text-xs font-weight-bold mb-0">{{ $pengujian->renewed_unit_practical_twr }}</p>
-                                    <p class="text-xs font-weight-bold mb-0">{{ $pengujian->renewed_unit_practical_app }}</p>
+                                    <p class="text-xs font-weight-bold mb-0">{{ ($pengujian->twrPractical->renewed_until) ? $pengujian->twrPractical->renewed_until : '-' }}</p>
+                                    <p class="text-xs font-weight-bold mb-0">{{ ($pengujian->appPractical->renewed_until) ? $pengujian->appPractical->renewed_until : '-' }}</p>
                                 </td>
                                 <td class="text-center">
-                                    <p class="text-xs font-weight-bold mb-0">{{ $pengujian->examiner_practical_twr }}</p>
-                                    <p class="text-xs font-weight-bold mb-0">{{ $pengujian->examiner_practical_app }}</p>
+                                    <p class="text-xs font-weight-bold mb-0">{{ ($pengujian->twrPractical->user->name) ? $pengujian->twrPractical->user->name : '-' }}</p>
+                                    <p class="text-xs font-weight-bold mb-0">{{ ($pengujian->appPractical->user->name) ? $pengujian->appPractical->user->name : '-' }}</p>
                                 </td>
                                 <td class="text-center">
-                                    <p class="text-xs font-weight-bold mb-0">{{ $pengujian->score_practical_twr }}</p>
-                                    <p class="text-xs font-weight-bold mb-0">{{ $pengujian->score_practical_app }}</p>
+                                    <p class="text-xs font-weight-bold mb-0">{{ ($pengujian->twrPractical->score) ? $pengujian->twrPractical->score : '-' }}</p>
+                                    <p class="text-xs font-weight-bold mb-0">{{ ($pengujian->appPractical->score) ? $pengujian->appPractical->score : '-' }}</p>
                                 </td>
                                 <td class="text-center">
                                     <img src="{{ asset('assets/img/verifikasi.png') }}" height="50">

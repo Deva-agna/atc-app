@@ -26,6 +26,7 @@ class CreateBiodatasTable extends Migration
             $table->string('address');
             $table->string('rating_one')->nullable();
             $table->string('rating_two')->nullable();
+            $table->string('image')->nullable();
             $table->string('slug');
             $table->timestamps();
         });

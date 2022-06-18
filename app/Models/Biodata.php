@@ -21,6 +21,7 @@ class Biodata extends Model
         'address',
         'rating_one',
         'rating_two',
+        'image',
         'slug'
     ];
 

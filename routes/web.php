@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PengujianController;
+use App\Http\Controllers\UpdatePasswordController;
 use App\Http\Controllers\UserController;
 
 Route::get('/', [LoginController::class, 'index'])->name('login')->middleware('guest');
@@ -23,12 +24,15 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function () {
     Route::put('/user/update', [UserController::class, 'update'])->name('user-update');
     Route::delete('/user/{slug}/destroy', [UserController::class, 'destroy']);
 
+    Route::get('/atc/list', [AtcController::class, 'atcList'])->name('atc-list');
+    Route::get('/print/all/atc', [AtcController::class, 'printAllAtc'])->name('print-all-atc');
+
     Route::get('/pengujian', [PengujianController::class, 'index'])->name('pengujian');
     Route::post('/pengujian/store', [PengujianController::class, 'store'])->name('pengujian-store');
     Route::delete('/pengujian/{slug}/destroy', [PengujianController::class, 'destroy']);
 });
 
-Route::group(['middleware' => ['auth', 'checkRole:user']], function () {
+Route::group(['middleware' => ['auth', 'checkRole:examiner,senior']], function () {
     Route::get('/atc', [AtcController::class, 'index'])->name('atc');
     Route::post('/atc/store', [AtcController::class, 'store'])->name('atc-store');
     Route::get('/atc/{slug}/edit', [AtcController::class, 'edit']);
@@ -37,10 +41,16 @@ Route::group(['middleware' => ['auth', 'checkRole:user']], function () {
 
     Route::get('/print/atc', [AtcController::class, 'printAtc'])->name('print-atc');
 
+    Route::get('/pengujian/atc/performance/cek', [PengujianController::class, 'atcPerformanceCek'])->name('pengujian-atc-performance-cek');
+    Route::get('/pengujian/print/atc/performance/cek', [PengujianController::class, 'printAtcPerformanceCek'])->name('pengujian-print-atc-performance-cek');
+
+    Route::get('/password', [UpdatePasswordController::class, 'edit'])->name('password');
+    Route::post('/password/update', [UpdatePasswordController::class, 'update'])->name('password-update');
+});
+
+Route::group(['middleware' => ['auth', 'checkRole:examiner']], function () {
     Route::get('/pengujian/list', [PengujianController::class, 'list'])->name('pengujian-list');
     Route::get('/pengujian/{slug}/edit', [PengujianController::class, 'edit']);
     Route::put('/pengujian/update', [PengujianController::class, 'update'])->name('pengujian-update');
     Route::get('/pengujian/{slug}/verifikasi', [PengujianController::class, 'verifikasi']);
-    Route::get('/pengujian/atc/performance/cek', [PengujianController::class, 'atcPerformanceCek'])->name('pengujian-atc-performance-cek');
-    Route::get('/pengujian/print/atc/performance/cek', [PengujianController::class, 'printAtcPerformanceCek'])->name('pengujian-print-atc-performance-cek');
 });

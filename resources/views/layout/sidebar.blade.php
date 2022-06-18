@@ -40,20 +40,20 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link {{ 'atc/list' == request()->path() ? 'active' : '' }} " href="{{route('atc-list')}}">
+                        <i class="ni ni-book-bookmark text-orange"></i> ATC - Log Book
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link {{ 'pengujian' == request()->path() ? 'active' : '' }} " href="{{route('pengujian')}}">
                         <i class="ni ni-bullet-list-67 text-yellow"></i> Pengujian
                     </a>
                 </li>
                 @endif
-                @if(auth()->user()->role == 'user')
+                @if(auth()->user()->role == 'examiner' || auth()->user()->role == 'senior')
                 <li class="nav-item">
                     <a class="nav-link {{ 'atc' == request()->path() ? 'active' : '' }} " href="{{route('atc')}}">
                         <i class="ni ni-book-bookmark text-orange"></i> ATC - Log Book
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ 'pengujian/list' == request()->path() ? 'active' : '' }} " href="{{route('pengujian-list')}}">
-                        <i class="ni ni-bullet-list-67 text-yellow"></i> Pengujian
                     </a>
                 </li>
                 <li class="nav-item">
@@ -62,15 +62,29 @@
                     </a>
                 </li>
                 @endif
+                @if(auth()->user()->role == 'examiner')
+                <li class="nav-item">
+                    <a class="nav-link {{ 'pengujian/list' == request()->path() ? 'active' : '' }} " href="{{route('pengujian-list')}}">
+                        <i class="ni ni-bullet-list-67 text-yellow"></i> Pengujian
+                    </a>
+                </li>
+                @endif
             </ul>
             <hr class="my-3">
             <h6 class="navbar-heading text-muted">Documentation</h6>
             <!-- Navigation -->
             <ul class="navbar-nav mb-md-3">
+                @if(auth()->user()->role == 'examiner' || auth()->user()->role == 'senior')
+                <li class="nav-item">
+                    <a class="nav-link {{ 'password' == request()->path() ? 'active' : '' }} " href="{{route('password')}}">
+                        <i class="ni ni-settings text-info"></i> Update Password
+                    </a>
+                </li>
+                @endif
                 <li class="nav-item">
                     <form action="/logout" method="post">
                         @csrf
-                        <button style="border: 0; background-color: transparent; cursor: pointer;" class="nav-link " href="./examples/tables.html">
+                        <button style="border: 0; background-color: transparent; cursor: pointer;" class="nav-link" href="./examples/tables.html">
                             <i class="fas fa-solid fa-arrow-left text-red"></i>Log Out
                         </button>
                     </form>

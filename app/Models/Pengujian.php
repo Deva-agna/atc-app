@@ -11,29 +11,28 @@ class Pengujian extends Model
 
     protected $fillable = [
         'user_id',
-        'theory_twr',
-        'renewed_unit_theory_twr',
-        'examiner_theory_twr',
-        'score_theory_twr',
-        'practical_twr',
-        'renewed_unit_practical_twr',
-        'examiner_practical_twr',
-        'score_practical_twr',
-        'theory_app',
-        'renewed_unit_theory_app',
-        'examiner_theory_app',
-        'score_theory_app',
-        'practical_app',
-        'renewed_unit_practical_app',
-        'examiner_practical_app',
-        'score_practical_app',
         'signature_and_stamp',
         'status',
         'slug',
     ];
-
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function twrTheory()
+    {
+        return $this->hasOne(TwrTheory::class);
+    }
+    public function appTheory()
+    {
+        return $this->hasOne(AppTheory::class);
+    }
+    public function appPractical()
+    {
+        return $this->hasOne(AppPractical::class);
+    }
+    public function twrPractical()
+    {
+        return $this->hasOne(TwrPractical::class);
     }
 }

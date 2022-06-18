@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePengujiansTable extends Migration
+class CreateAppTheoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreatePengujiansTable extends Migration
      */
     public function up()
     {
-        Schema::create('pengujians', function (Blueprint $table) {
+        Schema::create('app_theories', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->string('signature_and_stamp')->nullable();
-            $table->string('status');
-            $table->string('slug');
+            $table->foreignId('pengujian_id')->constrained('pengujians');
+            $table->string('theory')->nullable();
+            $table->string('renewed_until')->nullable();
+            $table->string('examiner')->nullable();
+            $table->string('score')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ class CreatePengujiansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pengujians');
+        Schema::dropIfExists('app_theories');
     }
 }

@@ -19,7 +19,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
+        'license_number_one',
+        'effected_since_one',
         'password',
         'role',
         'slug',
@@ -32,12 +33,17 @@ class User extends Authenticatable
 
     public function atc()
     {
-        return $this->hasOne(Atc::class);
+        return $this->hasMany(Atc::class);
     }
 
     public function pengujian()
     {
-        return $this->hasOne(Pengujian::class);
+        return $this->hasMany(Pengujian::class);
+    }
+
+    public function item()
+    {
+        return $this->hasMany(Item::class);
     }
     /**
      * The attributes that should be hidden for serialization.

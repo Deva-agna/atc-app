@@ -16,6 +16,15 @@
             </button>
         </div>
         @endif
+        @if(session()->has('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <span class="alert-icon"><i class="ni ni-like-2"></i></span>
+            <span class="alert-text"><strong>Sukses!</strong> {{session('error')}}</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
         <div class="card shadow">
             <div class="card-header border-0">
                 <button class="btn btn-icon btn-primary" type="button">
@@ -28,12 +37,14 @@
                     <thead class="thead-light">
                         <tr>
                             <th scope="col">Nama</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Completion</th>
+                            <th scope="col">License Number</th>
+                            <th scope="col">Level</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($users as $user)
+                        @if($user->role != 'admin')
                         <tr>
                             <th scope="row">
                                 <div class="media align-items-center">
@@ -43,7 +54,10 @@
                                 </div>
                             </th>
                             <td>
-                                {{ $user->email }}
+                                {{ $user->license_number_one }}
+                            </td>
+                            <td>
+                                {{ $user->role }}
                             </td>
                             <td>
                                 <a href="/user/{{$user->slug}}/edit" class="badge badge-success">Edit</a>
@@ -54,6 +68,7 @@
                                 </form>
                             </td>
                         </tr>
+                        @endif
                         @endforeach
                     </tbody>
                 </table>
@@ -66,10 +81,6 @@
 @endsection
 
 @section('script')
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.17/dist/sweetalert2.all.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
     $(document).on('click', '.btn-hapus', function(e) {
         e.preventDefault();

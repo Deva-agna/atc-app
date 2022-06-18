@@ -59,11 +59,11 @@
                                 <div class="form-group mb-3">
                                     <div class="input-group input-group-alternative">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                                            <span class="input-group-text"><i class="ni ni-single-02"></i></span>
                                         </div>
-                                        <input class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" name="email" placeholder="Email" type="email">
+                                        <input class="form-control @error('license_number_one') is-invalid @enderror" value="{{ old('license_number_one') }}" name="license_number_one" placeholder="1234" type="number">
                                     </div>
-                                    @error('email')
+                                    @error('license_number_one')
                                     <div class="invalid-feedback" style="display: inline;">
                                         {{ $message }}
                                     </div>
@@ -77,7 +77,7 @@
                                         <input class="form-control" name="password" placeholder="17-08-1995" type="password">
                                     </div>
                                 </div>
-                                @error('email')
+                                @error('password')
                                 <div class="invalid-feedback" style="display: inline;">
                                     {{ $message }}
                                 </div>

@@ -80,4 +80,21 @@ class AtcController extends Controller
 
         return view('atc.print-atc', compact('atcs'));
     }
+
+    public function printAllAtc()
+    {
+        $atcs = Atc::get();
+
+        if (request('cari')) {
+            $atcs = Atc::where('tgl', 'like', '%' . request('cari') . '%')->orderBy('user_id')->get();
+        }
+
+        return view('atc.print-all-atc', compact('atcs'));
+    }
+
+    public function atcList()
+    {
+        $atcs = Atc::latest()->get();
+        return view('atc.atc-list', compact('atcs'));
+    }
 }

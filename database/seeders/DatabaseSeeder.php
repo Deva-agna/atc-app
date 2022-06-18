@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         \App\Models\User::create([
             'name' => 'Master Admin',
-            'email' => 'atc.admin@gmail.com',
+            'license_number_one' => '1234',
             'password' => bcrypt('password'),
             'role' => 'admin',
             'slug' => 'master-admin',

@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AppPractical;
+use App\Models\AppTheory;
 use App\Models\Pengujian;
+use App\Models\TwrPractical;
+use App\Models\TwrTheory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -11,26 +15,56 @@ class PengujianController extends Controller
 {
     public function index()
     {
-        $users = User::where('role', 'user')->get();
+        $users = User::get();
         $pengujian_s = Pengujian::latest()->get();
-        return view('pengujian.index', compact('users', 'pengujian_s'));
+        $twr_theory = TwrTheory::get();
+        $app_theory = AppTheory::get();
+        $twr_practical = TwrPractical::get();
+        $app_practical = AppPractical::get();
+        return view('pengujian.index', compact('users', 'pengujian_s', 'twr_theory', 'app_theory', 'twr_practical', 'app_practical'));
     }
 
     public function store(Request $request)
     {
+        // return $request;
         $request->validate([
             'id' => 'required',
+            'penguji_satu' => 'required',
+            'penguji_dua' => 'required',
+            'penguji_tiga' => 'required',
+            'penguji_empat' => 'required',
         ]);
 
-        $user = User::where('id', $request->id)->first();
+        if ($request->id != $request->penguji_satu && $request->id != $request->penguji_dua && $request->id != $request->penguji_tiga && $request->id != $request->penguji_empat) {
+            $user = User::where('id', $request->id)->first();
 
-        Pengujian::create([
-            'user_id' => $request->id,
-            'status' => 'false',
-            'slug' => Str::of($user->name . '-' . time())->slug('-'),
-        ]);
+            $pengujian = Pengujian::create([
+                'user_id' => $request->id,
+                'status' => 'false',
+                'slug' => Str::of($user->name . '-' . time())->slug('-'),
+            ]);
 
-        return redirect()->back()->with('sukses', 'Data berhasil ditambahkan!');
+            TwrTheory::create([
+                'pengujian_id' => $pengujian->id,
+                'user_id' => $request->penguji_satu,
+            ]);
+            TwrPractical::create([
+                'pengujian_id' => $pengujian->id,
+                'user_id' => $request->penguji_dua,
+            ]);
+            AppTheory::create([
+                'pengujian_id' => $pengujian->id,
+                'user_id' => $request->penguji_tiga,
+            ]);
+            AppPractical::create([
+                'pengujian_id' => $pengujian->id,
+                'user_id' => $request->penguji_empat,
+            ]);
+
+            return redirect()->back()->with('sukses', 'Data berhasil ditambahkan!');
+        } else {
+            return redirect()->back()->with('error', 'Salah satu data penguji sama dengan data yang diuji!');
+        }
     }
 
     public function list()
@@ -41,31 +75,48 @@ class PengujianController extends Controller
 
     public function edit($slug)
     {
+
         $pengujian = Pengujian::where('slug', $slug)->first();
-        $users = User::where('role', 'user')->get();
-        return view('pengujian.kelola-pengujian', compact('pengujian', 'users'));
+        $twrTheory = TwrTheory::where('pengujian_id', $pengujian->id)->first();
+        $twrPractical = TwrPractical::where('pengujian_id', $pengujian->id)->first();
+        $appTheory = AppTheory::where('pengujian_id', $pengujian->id)->first();
+        $appPractical = AppPractical::where('pengujian_id', $pengujian->id)->first();
+        return view('pengujian.kelola-pengujian', compact('pengujian', 'twrTheory', 'twrPractical', 'appTheory', 'appPractical'));
     }
 
     public function update(Request $request)
     {
-        Pengujian::where('id', $request->id)->update([
-            'theory_twr' => $request->theory_twr,
-            'renewed_unit_theory_twr' => $request->renewed_unit_theory_twr,
-            'examiner_theory_twr' => $request->examiner_theory_twr,
-            'score_theory_twr' => $request->score_theory_twr,
-            'practical_twr' => $request->practical_twr,
-            'renewed_unit_practical_twr' => $request->renewed_unit_practical_twr,
-            'examiner_practical_twr' => $request->examiner_practical_twr,
-            'score_practical_twr' => $request->score_practical_twr,
-            'theory_app' => $request->theory_app,
-            'renewed_unit_theory_app' => $request->renewed_unit_theory_app,
-            'examiner_theory_app' => $request->examiner_theory_app,
-            'score_theory_app' => $request->score_theory_app,
-            'practical_app' => $request->practical_app,
-            'renewed_unit_practical_app' => $request->renewed_unit_practical_app,
-            'examiner_practical_app' => $request->examiner_practical_app,
-            'score_practical_app' => $request->score_practical_app,
-        ]);
+        if ($request->key_twr_theory) {
+            TwrTheory::where('id', $request->twr_theory)->update([
+                'theory' => $request->theory_twr,
+                'renewed_until' => $request->renewed_until_theory_twr,
+                'score' => $request->score_theory_twr,
+            ]);
+        }
+
+        if ($request->key_twr_practical) {
+            TwrPractical::where('id', $request->twr_practical)->update([
+                'practical' => $request->practical_twr,
+                'renewed_until' => $request->renewed_until_practical_twr,
+                'score' => $request->score_practical_twr,
+            ]);
+        }
+
+        if ($request->key_app_theory) {
+            AppTheory::where('id', $request->app_theory)->update([
+                'theory' => $request->theory_app,
+                'renewed_until' => $request->renewed_until_theory_app,
+                'score' => $request->score_theory_app,
+            ]);
+        }
+
+        if ($request->key_app_practical) {
+            AppPractical::where('id', $request->app_practical)->update([
+                'practical' => $request->practical_app,
+                'renewed_until' => $request->renewed_until_practical_app,
+                'score' => $request->score_practical_app,
+            ]);
+        }
 
         return redirect()->route('pengujian-list')->with('sukses', 'Data berhasil dikelola!');
     }
@@ -73,23 +124,23 @@ class PengujianController extends Controller
     public function verifikasi($slug)
     {
         $pengujian = Pengujian::where('slug', $slug)->first();
+        $twrTheory = TwrTheory::where('pengujian_id', $pengujian->id)->first();
+        $twrPractical = TwrPractical::where('pengujian_id', $pengujian->id)->first();
+        $appTheory = AppTheory::where('pengujian_id', $pengujian->id)->first();
+        $appPractical = AppPractical::where('pengujian_id', $pengujian->id)->first();
         if (
-            $pengujian->theory_twr &&
-            $pengujian->renewed_unit_theory_twr &&
-            $pengujian->examiner_theory_twr &&
-            $pengujian->score_theory_twr &&
-            $pengujian->practical_twr &&
-            $pengujian->renewed_unit_practical_twr &&
-            $pengujian->examiner_practical_twr &&
-            $pengujian->score_practical_twr &&
-            $pengujian->theory_app &&
-            $pengujian->renewed_unit_theory_app &&
-            $pengujian->examiner_theory_app &&
-            $pengujian->score_theory_app &&
-            $pengujian->practical_app &&
-            $pengujian->renewed_unit_practical_app &&
-            $pengujian->examiner_practical_app &&
-            $pengujian->score_practical_app
+            $twrTheory->theory &&
+            $twrTheory->renewed_until &&
+            $twrTheory->score &&
+            $twrPractical->practical &&
+            $twrPractical->renewed_until &&
+            $twrPractical->score &&
+            $appTheory->theory &&
+            $appTheory->renewed_until &&
+            $appTheory->score &&
+            $appPractical->practical &&
+            $appPractical->renewed_until &&
+            $appPractical->score
         ) {
             Pengujian::where('slug', $slug)->update([
                 'signature_and_stamp' => auth()->user()->name,
@@ -104,6 +155,14 @@ class PengujianController extends Controller
     public function destroy($slug)
     {
         $pengujian = Pengujian::where('slug', $slug)->first();
+        $twrTheory = TwrTheory::where('pengujian_id', $pengujian->id)->first();
+        $twrPractical = TwrPractical::where('pengujian_id', $pengujian->id)->first();
+        $appTheory = AppTheory::where('pengujian_id', $pengujian->id)->first();
+        $appPractical = AppPractical::where('pengujian_id', $pengujian->id)->first();
+        TwrTheory::destroy($twrTheory->id);
+        TwrPractical::destroy($twrPractical->id);
+        AppTheory::destroy($appTheory->id);
+        AppPractical::destroy($appPractical->id);
         Pengujian::destroy($pengujian->id);
         return redirect()->route('pengujian')->with('sukses', 'Data berhasil dihapus!');
     }
