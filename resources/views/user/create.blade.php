@@ -125,7 +125,7 @@
                 <select class="form-control form-control-alternative" name="role" id="role">
                     <option value="">Pilih</option>
                     <option value="examiner">Examiner</option>
-                    <option value="senior">Senior</option>
+                    <option value="atc">Atc</option>
                 </select>
                 @error('role')
                 <div class="invalid-feedback" style="display: inline;">

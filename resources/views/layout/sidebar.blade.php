@@ -50,7 +50,7 @@
                     </a>
                 </li>
                 @endif
-                @if(auth()->user()->role == 'examiner' || auth()->user()->role == 'senior')
+                @if(auth()->user()->role == 'examiner' || auth()->user()->role == 'atc')
                 <li class="nav-item">
                     <a class="nav-link {{ 'atc' == request()->path() ? 'active' : '' }} " href="{{route('atc')}}">
                         <i class="ni ni-book-bookmark text-orange"></i> ATC - Log Book
@@ -74,7 +74,7 @@
             <h6 class="navbar-heading text-muted">Documentation</h6>
             <!-- Navigation -->
             <ul class="navbar-nav mb-md-3">
-                @if(auth()->user()->role == 'examiner' || auth()->user()->role == 'senior')
+                @if(auth()->user()->role == 'examiner' || auth()->user()->role == 'atc')
                 <li class="nav-item">
                     <a class="nav-link {{ 'password' == request()->path() ? 'active' : '' }} " href="{{route('password')}}">
                         <i class="ni ni-settings text-info"></i> Update Password

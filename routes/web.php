@@ -32,7 +32,7 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function () {
     Route::delete('/pengujian/{slug}/destroy', [PengujianController::class, 'destroy']);
 });
 
-Route::group(['middleware' => ['auth', 'checkRole:examiner,senior']], function () {
+Route::group(['middleware' => ['auth', 'checkRole:examiner,atc']], function () {
     Route::get('/atc', [AtcController::class, 'index'])->name('atc');
     Route::post('/atc/store', [AtcController::class, 'store'])->name('atc-store');
     Route::get('/atc/{slug}/edit', [AtcController::class, 'edit']);
